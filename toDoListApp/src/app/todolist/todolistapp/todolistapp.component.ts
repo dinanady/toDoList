@@ -14,18 +14,30 @@ export class TodolistappComponent {
   availableTask:boolean=false;
  addtask(){
   if(this.newtask!==""){
-    this.tasks.push(this.newtask);
+    this.tasks.push(this.newtask.trim());
     this.availableTask=true
   }
 this.newtask="";
-console.log(this.tasks)
+
  }
  deleteTask(id:number){
   this.tasks.splice(id,1);
   this.availableTask=this.tasks.length>0
  }
-//  editTask(id:number,string:newtaskedit){
+  editTask(id:number,newtaskedit:string): string|void{
+    console.log(newtaskedit)
+   
+    if(newtaskedit.trim()!==''){
+      console.log(newtaskedit)
+      this.tasks[id]=newtaskedit;
+      
+    }
+    else{
+      newtaskedit=this.tasks[id];
+      return this.newtask=newtaskedit;
+    }
+    this.newtask="";
   
-//  }
+  }
 
 }

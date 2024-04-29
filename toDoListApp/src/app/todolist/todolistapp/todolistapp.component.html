@@ -31,7 +31,7 @@
                 <tr>
                   <td>{{item}}</td>
                   <td>
-                    <button type="button" class="btn btn-primary">Edit</button>
+                    <button type="button" class="btn btn-primary" (click)="editTask($index,newtask)">Edit</button>
                   </td>
                   <td>
                     <button type="button" class="btn btn-danger" (click)="deleteTask($index)">Delete</button>
