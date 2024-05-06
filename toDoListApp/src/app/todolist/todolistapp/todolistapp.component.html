@@ -32,7 +32,7 @@
                 }
               </div>
             </div>
-            @if (availableTask) {
+            @if (tasks.length>0) {
             <hr class="my-4">
             <table class="table text-white mb-0 text-center">
               <thead>
@@ -95,6 +95,7 @@
  </div>
 </div>
 <!-- update Modal -->
+
 <div class="modal" id="editTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
   <div class="modal-dialog">
@@ -106,15 +107,15 @@ aria-hidden="true">
       </div>
       <div class="modal-body">
         <!-- Task Form -->
-        <form (submit)="updateTask()">
+        <form #editForm="ngForm" (submit)="updateTask()">
           <div class="form-group">
             <label for="taskTitle">Title:</label>
             <input type="text" class="form-control" id="taskTitle" [(ngModel)]="updatedTask.title" name="title">
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Edit</button>
+            <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid" >Edit</button>
           </div>
-          
+        
         </form>
       </div>
     </div>
@@ -124,4 +125,4 @@ aria-hidden="true">
     </div>
   </div>
 </section>
-<!-- Button trigger modal -->
+<!-- Button trigger modal -->z

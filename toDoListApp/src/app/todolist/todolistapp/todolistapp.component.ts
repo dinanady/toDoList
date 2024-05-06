@@ -24,12 +24,14 @@ availableTask:boolean=false;
 errorMge ="";
 deletedtaskId:string=""
 updatedTask:ToDo={} as ToDo
-
+EditOpenModal:boolean=false;
+errorMgeedit ="";
+editForm: any;
 constructor(private todoservice :TodoService){};
 ngOnInit(): void {
  
   this.gettasks()
-    
+  this.availableTask=this.tasks.length>0;
     
   }
 
@@ -94,18 +96,30 @@ toggleTaskStatus(task: ToDo): void {
   
 
 }
-edittask(editTask:ToDo){
-this.updatedTask=editTask
-console.log(editTask)
+edittask(editTask: ToDo) {
+  if (editTask.title.trim() !== "") { // Check if title is not empty
+    this.updatedTask = editTask;
+    this.EditOpenModal = true; // Open the edit modal
+    console.log(editTask);
+  }
 }
-updateTask(){
-  this.todoservice.updateToDo(this.updatedTask).subscribe(todo=>{
 
-    this.updatedTask=todo;
+updateTask() {
+  if (this.updatedTask.title.trim() !== "") { // Check if title is not empty
+    this.todoservice.updateToDo(this.updatedTask).subscribe(todo => {
+      this.updatedTask = todo;
+      this.closeModal();
+    });
+  }
+ 
+}
+closeModal(){
+  const divmode= document.getElementById('editTaskModal');
+  if(divmode!=null){
+    divmode.style.display="none";
+  // divmode.style.opacity="100";
+  }
 
-   
-      
-  })
 }
 
 }
