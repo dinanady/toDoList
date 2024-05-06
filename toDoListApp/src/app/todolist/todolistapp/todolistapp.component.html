@@ -96,14 +96,13 @@
 </div>
 <!-- update Modal -->
 
-<div class="modal" id="editTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
+<!-- Your existing HTML code -->
+<div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title  fs-5">Edit Task</h4>
+        <h4 class="modal-title fs-5">Edit Task</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        
       </div>
       <div class="modal-body">
         <!-- Task Form -->
@@ -113,14 +112,15 @@ aria-hidden="true">
             <input type="text" class="form-control" id="taskTitle" [(ngModel)]="updatedTask.title" name="title">
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid" >Edit</button>
+            <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid">Edit</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
-        
         </form>
       </div>
     </div>
   </div>
 </div>
+
       </div>
     </div>
   </div>

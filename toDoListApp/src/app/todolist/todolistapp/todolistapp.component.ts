@@ -25,8 +25,7 @@ errorMge ="";
 deletedtaskId:string=""
 updatedTask:ToDo={} as ToDo
 EditOpenModal:boolean=false;
-errorMgeedit ="";
-editForm: any;
+
 constructor(private todoservice :TodoService){};
 ngOnInit(): void {
  
@@ -108,7 +107,7 @@ updateTask() {
   if (this.updatedTask.title.trim() !== "") { // Check if title is not empty
     this.todoservice.updateToDo(this.updatedTask).subscribe(todo => {
       this.updatedTask = todo;
-      this.closeModal();
+      // this.closeModal();
     });
   }
  
