@@ -1,4 +1,4 @@
-<section class="vh-100 gradient-custom-2 min-height-100">
+<section class="vh-100 gradient-custom-2 min-height-200%">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-md-12 col-xl-10">
@@ -17,10 +17,10 @@
 
                   <input type="text" class="form-control form-control-lg ml-2" id="exampleFormControlInput1"
                     placeholder="Add new..." [(ngModel)]="newtodo.title">
-                  <a href="#!" data-mdb-tooltip-init title="Set due date"><i
-                      class="fas fa-calendar-alt fa-lg me-3 ms-2"></i></a>
+                  
+                   
                   <div>
-                    <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary"
+                    <button type="submit" data-mdb-button-init data-mdb-ripple-init class=" ms-3 btn btn-primary"
                       (click)="createTodo()">Add</button>
                   </div>
 
@@ -58,7 +58,8 @@
                     </a>
                     <a href="#!" data-mdb-tooltip-init title="Remove"><i class=" fas fa-trash-alt fa-lg text-danger "
                         data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="deletedtaskid(task.id)"></i></a>
-                        <a href="#!" data-mdb-tooltip-init title="Remove"><i class="fas fa-pen-square fa-lg fa-lg text-secondary me-3 ms-3"  data-bs-toggle="modal" data-bs-target="#editTaskModal" (click)="edittask(task)"></i></a>
+                        @if(!task.completed){
+                        <a href="#!" data-mdb-tooltip-init title="Remove"><i class="fas fa-pen-square fa-lg fa-lg text-secondary me-3 ms-3"  data-bs-toggle="modal" data-bs-target="#editTaskModal" (click)="edittask(task)"></i></a>}
                   </td>
                  
                   <!--  -->
@@ -71,7 +72,7 @@
 
             }
             @else {
-            <p class="text-center mt-2"> No Tasks Edd</p>
+            <p class="text-center mt-2"> No Tasks Included Yet</p>
             }
           </div>
         </div>
@@ -85,7 +86,7 @@
        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
      </div>
      <div class="modal-body">
-       Are you sure you want to delete this task
+       Are you sure you want to delete this task 
      </div>
      <div class="modal-footer">
        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deletetodo()">Delete</button>
@@ -97,7 +98,7 @@
 <!-- update Modal -->
 
 <!-- Your existing HTML code -->
-<div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel"  aria-hidden="true" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -106,16 +107,25 @@
       </div>
       <div class="modal-body">
         <!-- Task Form -->
-        <form #editForm="ngForm" (submit)="updateTask()">
+        <form #editForm="ngForm" (ngSubmit)="updateTask(editForm)">
           <div class="form-group">
             <label for="taskTitle">Title:</label>
-            <input type="text" class="form-control" id="taskTitle" [(ngModel)]="updatedTask.title" name="title">
+            <input type="text" class="form-control" id="taskTitle" [(ngModel)]="updatedTask.title" name="taskTitle" required #taskTitle="ngModel" >
+            @if(taskTitle.invalid && taskTitle.touched) {
+
+              @if(taskTitle.errors?.["required"]){
+
+                <p class="text-danger">Title is required</p>
+              }
+            }
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid">Edit</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!--  -->
+            <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid" data-bs-dismiss="modal" aria-label="Close">Edit</button>
+          
           </div>
         </form>
+
       </div>
     </div>
   </div>
@@ -125,4 +135,4 @@
     </div>
   </div>
 </section>
-<!-- Button trigger modal -->z
+<!-- Button trigger modal -->

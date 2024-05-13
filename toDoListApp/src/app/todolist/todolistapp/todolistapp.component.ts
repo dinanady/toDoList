@@ -1,12 +1,9 @@
 
-import { FormGroup, FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ToDo } from '../../model/to-do';
 import { TodoService } from '../../services/todo.service';
 import { Component, OnInit } from '@angular/core';
-import { filter, timeInterval } from 'rxjs';
 import { NgClass } from '@angular/common';
-import { Title } from '@angular/platform-browser';
-;
 @Component({
   selector: 'app-todolistapp',
   standalone: true,
@@ -24,7 +21,7 @@ availableTask:boolean=false;
 errorMge ="";
 deletedtaskId:string=""
 updatedTask:ToDo={} as ToDo
-EditOpenModal:boolean=false;
+
 
 constructor(private todoservice :TodoService){};
 ngOnInit(): void {
@@ -98,57 +95,28 @@ toggleTaskStatus(task: ToDo): void {
 edittask(editTask: ToDo) {
   if (editTask.title.trim() !== "") { // Check if title is not empty
     this.updatedTask = editTask;
-    this.EditOpenModal = true; // Open the edit modal
-    console.log(editTask);
+    this.updatedTask.title=editTask.title;
+  
+ 
+    
+    console.log(this.updatedTask);
   }
+
 }
 
-updateTask() {
-  if (this.updatedTask.title.trim() !== "") { // Check if title is not empty
+updateTask(form:NgForm) {
+  if (form.value.taskTitle!== "") { // Check if title is not empty
     this.todoservice.updateToDo(this.updatedTask).subscribe(todo => {
       this.updatedTask = todo;
-      // this.closeModal();
+      this.ngOnInit();
+      
     });
   }
- 
-}
-closeModal(){
-  const divmode= document.getElementById('editTaskModal');
-  if(divmode!=null){
-    divmode.style.display="none";
-  // divmode.style.opacity="100";
+  else{
+   this.newtodo=this.updatedTask;
+   this.ngOnInit();
   }
-
 }
 
-}
-//   tasks:string[]=[];
-//   newtask:string="";
-//   
-//  addtask(){
-//   if(this.newtask!==""){
-//     this.tasks.push(this.newtask.trim());
-//     this.availableTask=true
-//   }
-// this.newtask="";
 
-//  }
-//  deleteTask(id:number){
-//   this.tasks.splice(id,1);
-//   this.availableTask=this.tasks.length>0
-//  }
-//   editTask(id:number,newtaskedit:string): string|void{
-//     console.log(newtaskedit)
-   
-//     if(newtaskedit.trim()!==''){
-//       console.log(newtaskedit)
-//       this.tasks[id]=newtaskedit;
-      
-//     }
-//     else{
-//       newtaskedit=this.tasks[id];
-//       return this.newtask=newtaskedit;
-//     }
-//     this.newtask="";
-  
-//   }
+}
